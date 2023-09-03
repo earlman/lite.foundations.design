@@ -28,15 +28,48 @@ headlineColor: "#FFFFFF"
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="{{ '/assets/fonts/fraunces/full.css'}}" rel="stylesheet">
+      <link href="{{ '/assets/fonts/inconsolata/index.css'}}" rel="stylesheet">
       <link rel="stylesheet" href="/styles/index.css">
       <title>{{title}}</title>
    </head>
 
-   <style></style>
+   <style>
+
+      body {
+         background-color: var(--color-b);
+      }
+
+      * {
+         color: white;
+      }
+
+      .gradient-button-container {
+         margin-left: var(--space-sm);
+      }
+   </style>
 
    <body>
-      <img src="/img/lite-logo.png"/>
+      <div class="logo">
+         <img src="/img/lite-logo.png"/>
+      </div>
+      <div class="coming-soon">
+         <p>
+            ⏳ COMING SOON
+         </p>
+      </div>
+      <div class="waitlist-form">
+         <div class="gradient-button-container">
+            <button class="gradient-button" type="">join the waitlist</button>
+         </div>
+      </div>
+      <div class="footer">
+         <div class="logo">
+            <a href="https://referral.foundations.design/jspe4ks" target="_blank">
+               {% include "logo-var1.svg" %}
+               <p>foundations.design</p>
+            </a>
+         </div>
+      </div>
    </body>
 
 </html>
