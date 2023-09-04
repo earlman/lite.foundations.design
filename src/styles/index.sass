@@ -13,6 +13,7 @@
   width: min-content
 
   .gradient-button
+    border: 0
     border-radius: 2px
     background-color: var(--color-b)
     border-color: transparent
@@ -20,9 +21,36 @@
     margin: 0
     cursor: pointer
     justify-content: center
-    padding-bottom: calc(.5em - 1px)
+    padding-bottom: var(--space-3xs)
     padding-left: 1em
     padding-right: 1em
-    padding-top: calc(.5em - 1px)
+    padding-top: var(--space-3xs)
     text-align: center
     white-space: nowrap
+
+footer
+  @media (max-height: 300px)
+    display: none
+
+  &.lite-footer
+    position: absolute
+    bottom: 0
+    background-color: var(--color-b)
+    width: 100%
+
+    a
+      display: grid
+      place-items: center
+      gap: var(--space-3xs)
+      margin-top: var(--space-3xs)
+      margin-bottom: var(--space-3xs)
+      opacity: 0.5
+
+      .footer-logo
+        display: grid
+        place-content: center
+        width: var(--space-sm)
+
+      *
+        text-align: center
+        font-size: var(--d-sm)
