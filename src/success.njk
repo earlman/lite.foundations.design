@@ -1,1 +1,119 @@
-<h1>We'll hit you up soon</h1>
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 interactive-widget=overlays-content" >
+    <link href="{{ '/assets/fonts/inconsolata/wdth.css'}}" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/index.css">
+    <title>{{title}}</title>
+
+    <script>
+      // set "--init-h" on page load
+      document.addEventListener("DOMContentLoaded", function () {
+        const root = document.documentElement;
+        const viewportHeight = window.innerHeight;
+        root
+          .style
+          .setProperty('--init-h', `${viewportHeight * .9}px`);
+      });
+    </script>
+  </head>
+
+  <style>
+
+    :root {
+      --init-h: 100vh;
+    }
+
+    html {
+      min-height: 100dvh;
+      position: relative;
+    }
+
+    body {
+      background: url("/background.png") var(--color-b);
+      display: grid;
+      grid-template-rows: calc(var(--init-h) * .62) calc(var(--init-h) * .15) calc(var(--init-h) * .18) calc(var(--init-h) * .09);
+      gap: var(--space-2xs);
+      min-height: var(--init-h);
+      justify-items: center;
+      align-items: center;
+    }
+
+    main {
+      grid-row: span 2;
+    }
+
+    h1 {
+      font-size: var(--d-lg);
+      font-variation-settings: "wght" 600, "wdth" 75;
+      letter-spacing: 0.15em;
+      opacity: 70%;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .waitlist-form {
+      display: grid;
+      gap: var(--space-2xs);
+      place-items: center;
+    }
+
+    .waitlist-form * {
+      text-align: center;
+    }
+
+    .waitlist-form .gradient-button {
+      display: flex;
+      color: #76FAFD;
+      justify-content: space-between;
+      padding-right: var(--space-2xs);
+      gap: var(--space-2xs);
+    }
+
+    .icon {
+      width: 24px;
+    }
+    .icon svg * {
+      color: #76FAFD;
+      fill: #76FAFD;
+    }
+
+    .header {
+      height: 100%;
+    }
+
+    .header .logo {
+      height: 100%;
+      padding-top: var(--space-md);
+      padding-bottom: var(--space-sm);
+    }
+
+    .header img {
+      margin-left: var(--space-md);
+      margin-right: var(--space-md);
+      max-height: 100%;
+    }
+  </style>
+
+  <body>
+    <header class="header">
+      <div class="logo">
+        <img src="/img/lite-logo.png"/>
+      </div>
+    </header>
+    <main>
+      <h1>We'll hit you up soon</h1>
+    </main>
+    <footer class="lite-footer">
+      <a href="https://referral.foundations.design/lite" target="_blank">
+        <div class="footer-logo">
+          {% include "logo-var1.svg" %}
+        </div>
+        <p>foundations.design</p>
+      </a>
+    </footer>
+  </body>
+
+</html>
