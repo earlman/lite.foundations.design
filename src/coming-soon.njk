@@ -33,7 +33,7 @@ headlineColor: "#FFFFFF"
       <title>{{title}}</title>
 
       <script>
-         // set initial height on page load
+         // set "--init-h" on page load
          document.addEventListener("DOMContentLoaded", function () {
             const root = document.documentElement;
             const viewportHeight = window.innerHeight;
@@ -56,7 +56,7 @@ headlineColor: "#FFFFFF"
       }
 
       body {
-         background-color: var(--color-b);
+         background: url("/background.png") var(--color-b);
          display: grid;
          grid-template-rows: calc(var(--init-h) * .58) calc(var(--init-h) * .15) calc(var(--init-h) * .18) calc(var(--init-h) * .09);
          gap: var(--space-2xs);
@@ -132,7 +132,7 @@ headlineColor: "#FFFFFF"
          </p>
       </div>
       <div class="waitlist-form">
-         <form name="waitlist" method="POST" data-netlify="true" style="display: contents;" action="/pages/success">
+         <form name="waitlist" method="POST" data-netlify="true" style="display: contents;" action="/success">
             <p>
                <input class="email-field" type="email" name="email" placeholder="**********@****.***"/>
             </p>
