@@ -1,0 +1,132 @@
+---
+templateEngineOverride: false
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap" rel="stylesheet">
+    <title>iFrame iPhone Simulator</title>
+    <style>
+      :root {
+        --frame-viewport-width: 390px;
+        --frame-viewport-height: 844px;
+        --frame-scaling-factor: 0.5;
+      }
+
+      body {
+        font-family: "Anonymous Pro";
+        display: grid;
+        place-content: center;
+        max-width: 900px;
+        margin-top: 3rem;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      .sites {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .site {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .og_image {
+        width: 250px;
+        /*maintains aspect ratio of og_image */
+        height: 131.25px;
+        border: 1px dotted #ccc;
+      }
+
+      .favicon {
+        border: 1px dotted #ccc;
+        height: 64px;
+        width: 64px;
+      }
+
+      .frames {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .iphone-frame {
+        width: calc(var(--frame-viewport-width) * var(--frame-scaling-factor));
+        height: calc(var(--frame-viewport-height)* var(--frame-scaling-factor));
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        border-radius: 12.5px;
+        float: left;
+        /* Set the origin of the transformation to the top-left corner */
+      }
+      .iphone-frame iframe {
+        transform: scale(var(--frame-scaling-factor));
+        transform-origin: 0 0;
+        width: var(--frame-viewport-width);
+        height: var(--frame-viewport-height);
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <section class="sites">
+        <div  v-for="url in urls" :key="url" class="site">
+          <a :href="url">{{url}}</a>
+          <div class="favicon">
+            <img  :src="(url + '/favicon.ico')" alt="" srcset="">
+          </div>
+          <div class="og_image">
+            <img :src="(url + '/og_image.png')" alt="" srcset=""></div>
+          <div class="iphone-frame">
+            <iframe :src="url" width="100%" height="100%" frameborder="0"></iframe>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      const {ref} = Vue;
+
+      const app = Vue.createApp({
+        setup() {
+          const urls = ref([
+            "https://yasminemusic.com",
+            "https://gnh.vibing.digital",
+            "https://janemilym.com",
+            "https://janina.vibing.digital",
+            "https://jspe4ks.vibing.digital",
+            "https://jan.vibing.digital"
+          ]);
+
+          return {urls};
+        }
+      });
+
+      app.mount('#app');
+
+      /* hide images that don't load */
+      var imgs = document.getElementsByTagName('img')
+      for (var i = 0, j = imgs.length; i < j; i++) {
+        imgs[i].onerror = function (e) {
+          this
+            .parentNode
+            .removeChild(this);
+        }
+      }
+    </script>
+  </body>
+</html>
