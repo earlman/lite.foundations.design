@@ -1,5 +1,5 @@
 ---
-templateEngineOverride: false
+templateEngineOverride: false # remove nunjucks templating to use Vue
 ---
 
 <!DOCTYPE html>
@@ -10,12 +10,20 @@ templateEngineOverride: false
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap" rel="stylesheet">
-    <title>iFrame iPhone Simulator</title>
+    <title>LITE | Gallery</title>
     <style>
       :root {
         --frame-viewport-width: 390px;
         --frame-viewport-height: 844px;
-        --frame-scaling-factor: 0.5;
+        --frame-scaling-factor: 0.6;
+      }
+
+      html {
+        background-color: #1c1c1c;
+      }
+      a,
+      p {
+        color: white;
       }
 
       body {
@@ -109,7 +117,7 @@ templateEngineOverride: false
             "https://janemilym.com",
             "https://janina.vibing.digital",
             "https://jspe4ks.vibing.digital",
-            "https://jan.vibing.digital"
+            "https://jem.vibing.digital"
           ]);
 
           return {urls};
