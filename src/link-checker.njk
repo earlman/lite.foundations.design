@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link Checker</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Link Checker</h1>
+
+    <div>
+      <label for="urlInput">Enter a URL:</label>
+      <input type="url" id="urlInput" placeholder="https://example.com">
+      <button onclick="checkLinks()">Check Links</button>
+    </div>
+
+    <h2>Results:</h2>
+    <div id="results"></div>
+
+    <script>
+      async function checkLinks() {
+        const url = document
+          .getElementById('urlInput')
+          .value;
+        if (!url) {
+          alert('Please enter a URL.');
+          return;
+        }
+
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = 'Checking...';
+
+        try {
+          const response = await axios.get(url);
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(response.data, 'text/html');
+          const links = Array
+            .from(doc.querySelectorAll('a[href]'))
+            .map(a => a.href);
+
+          const brokenLinks = [];
+          for (const link of links) {
+            try {
+              const linkResponse = await axios.head(link);
+              if (linkResponse.status !== 200) {
+                brokenLinks.push(link);
+              }
+            } catch (error) {
+              brokenLinks.push(link);
+            }
+          }
+
+          if (brokenLinks.length) {
+            resultsDiv.innerHTML = '<strong>Broken links found:</strong><br>' + brokenLinks.join('<br>');
+          } else {
+            resultsDiv.innerHTML = 'All links are working fine!';
+          }
+        } catch (error) {
+          resultsDiv.innerHTML = 'Error checking links.';
+        }
+      }
+    </script>
+  </body>
+
+</html>
