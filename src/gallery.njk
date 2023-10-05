@@ -10,6 +10,24 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Anonymous+Pro&display=swap" rel="stylesheet">
+
+    <!-- trying out open-props -->
+    <!-- the props -->
+    <link rel="stylesheet" href="https://unpkg.com/open-props"/>
+
+    <!-- optional imports that use the props -->
+    <link rel="stylesheet" href="https://unpkg.com/open-props/normalize.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/buttons.min.css"/>
+
+    <!-- individual imports -->
+    <link rel="stylesheet" href="https://unpkg.com/open-props/indigo.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/indigo-hsl.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/easings.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/animations.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/sizes.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/open-props/gradients.min.css"/>
+    <!-- see PropPacks for the full list -->
+
     <title>LITE | Gallery</title>
     <style>
       :root {
@@ -31,24 +49,53 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
         display: grid;
         place-content: center;
         max-width: 900px;
-        margin-top: 3rem;
-        margin-left: auto;
-        margin-right: auto;
+        margin: 6rem auto;
       }
 
       img {
         width: 100%;
       }
 
+      h1 {
+        color: white;
+        margin-bottom: var(--size-3);
+      }
+
       .sites {
         display: flex;
         flex-wrap: wrap;
-        gap: 2rem;
+        gap: var(--size-fluid-5);
       }
 
       .site {
         display: grid;
-        gap: 1rem;
+        gap: var(--size-fluid-1);
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-content: center;
+      }
+
+      .site * {
+        grid-column: span 3;
+      }
+
+      .site .siteUrl {
+        font-size: var(--font-size-3);
+        color: white;
+      }
+
+      .netlifyUrl {
+        grid-column: 2;
+        text-decoration: underline;
+      }
+
+      .githubUrl {
+        grid-column: 2;
+        text-decoration: underline;
+      }
+
+      .githubUrl:visited,
+      .netlifyUrl:visited {
+        color: white;
       }
 
       .og_image {
@@ -59,6 +106,8 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
       }
 
       .favicon {
+        grid-column: 1;
+        grid-row: span 2;
         border: 1px dotted #ccc;
         height: 64px;
         width: 64px;
@@ -91,36 +140,80 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
   </head>
   <body>
     <div id="app">
+      <h1>LITE / Gen 0</h1>
       <section class="sites">
-        <div  v-for="url in urls" :key="url" class="site">
-          <a :href="url">{{url}}</a>
+        <div  v-for="site in sites" :key="site.url" class="site">
+          <a :href="site.url" class="siteUrl">{{site.displayUrl}}</a>
           <div class="favicon">
-            <img  :src="(url + '/favicon.ico')" alt="" srcset="">
+            <img  :src="(site.url + '/favicon.ico')" alt="" srcset="">
           </div>
+          <a :href="site.netlifyUrl" class="netlifyUrl">Netlify</a>
+          <a :href="site.githubUrl" class="githubUrl">Github</a>
           <div class="og_image">
-            <img :src="(url + '/og_image.png')" alt="" srcset=""></div>
+            <img :src="(site.url + '/og_image.png')" alt="" srcset=""></div>
+
           <div class="iphone-frame">
-            <iframe :src="url" width="100%" height="100%" frameborder="0"></iframe>
+            <iframe :src="site.url" width="100%" height="100%" frameborder="0"></iframe>
           </div>
         </div>
       </section>
     </div>
 
     <script>
-      const {ref} = Vue;
+      const {ref, computed} = Vue;
+
+      const sitesData = [
+        {
+          url: "https://yasminemusic.com",
+          netlifyUrl: "https://app.netlify.com/sites/yasminemusic/overview",
+          githubUrl: "https://github.com/foundations-design/yasminemusic.com"
+        }, {
+          url: "https://gnh.vibing.digital",
+          netlifyUrl: "https://app.netlify.com/sites/gnh-vibing-digital/overview",
+          githubUrl: "https://github.com/foundations-design/gnh.vibing.digital"
+        }, {
+          url: "https://janemilym.com",
+          netlifyUrl: "https://app.netlify.com/sites/janemilym/overview",
+          githubUrl: "https://github.com/foundations-design/janemilym"
+        }, {
+          url: "https://janina.vibing.digital",
+          netlifyUrl: "https://app.netlify.com/sites/janinavibingdigital/overview",
+          githubUrl: "https://github.com/foundations-design/janina.vibing.digital"
+        }, {
+          url: "https://jspe4ks.vibing.digital",
+          netlifyUrl: "https://app.netlify.com/sites/jspe4ks-vibing-digital/configuration/general",
+          githubUrl: "https://github.com/foundations-design/jspe4ks.vibing.online"
+        }, {
+          url: "https://jem.vibing.digital",
+          netlifyUrl: "https://app.netlify.com/sites/jemvibingdigital/overview",
+          githubUrl: "https://github.com/foundations-design/jem.vibing.digital"
+        }
+      ]
 
       const app = Vue.createApp({
         setup() {
-          const urls = ref([
-            "https://yasminemusic.com",
-            "https://gnh.vibing.digital",
-            "https://janemilym.com",
-            "https://janina.vibing.digital",
-            "https://jspe4ks.vibing.digital",
-            "https://jem.vibing.digital"
-          ]);
 
-          return {urls};
+          let s = ref(sitesData);
+          sites = computed(() => {
+            return s
+              .value
+              .map(site => {
+                const processUrl = (url) => {
+                  if (!url) 
+                    return null;
+                  let stripped = url.replace('https://', '');
+                  let [subdomain, ...rest] = stripped.split('.');
+                  return `${subdomain}.${rest.join('.')}`;
+                };
+
+                return {
+                  ...site,
+                  displayUrl: processUrl(site.url)
+                };
+              });
+          });
+
+          return {sitesData, sites};
         }
       });
 
