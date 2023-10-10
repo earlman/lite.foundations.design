@@ -135,6 +135,9 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
         width: var(--frame-viewport-width);
         height: var(--frame-viewport-height);
       }
+      .publish-date {
+        font-size: var(--font-size-1);
+      }
     </style>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   </head>
@@ -144,11 +147,12 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
       <section class="sites">
         <div  v-for="site in sites" :key="site.url" class="site">
           <a :href="site.url" class="siteUrl">{{site.displayUrl}}</a>
+          <p class="publish-date" v-if="site.publishDate"> Published on {{site.publishDate}}</p>
           <div class="favicon">
             <img  :src="(site.url + '/favicon.ico')" alt="" srcset="">
           </div>
-          <a :href="site.netlifyUrl" class="netlifyUrl">Netlify</a>
-          <a :href="site.githubUrl" class="githubUrl">Github</a>
+          <a target="_blank" :href="site.netlifyUrl" class="netlifyUrl">Netlify</a>
+          <a target="_blank" :href="site.githubUrl" class="githubUrl">Github</a>
           <div class="og_image">
             <img :src="(site.url + '/og_image.png')" alt="" srcset=""></div>
 
@@ -178,11 +182,13 @@ templateEngineOverride: false # remove nunjucks templating to use Vue
         }, {
           url: "https://janina.vibing.digital",
           netlifyUrl: "https://app.netlify.com/sites/janinavibingdigital/overview",
-          githubUrl: "https://github.com/foundations-design/janina.vibing.digital"
+          githubUrl: "https://github.com/foundations-design/janina.vibing.digital",
+          publishDate: "2023-10-05"
         }, {
           url: "https://jspe4ks.vibing.digital",
           netlifyUrl: "https://app.netlify.com/sites/jspe4ks-vibing-digital/configuration/general",
-          githubUrl: "https://github.com/foundations-design/jspe4ks.vibing.online"
+          githubUrl: "https://github.com/foundations-design/jspe4ks.vibing.online",
+          publishDate: "2023-09-01"
         }, {
           url: "https://jem.vibing.digital",
           netlifyUrl: "https://app.netlify.com/sites/jemvibingdigital/overview",
